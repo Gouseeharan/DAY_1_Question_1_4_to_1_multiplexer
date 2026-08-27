@@ -1,0 +1,48 @@
+`timescale 1ns / 1ps
+
+module test;
+reg [3:0]d0;
+reg [3:0]d1;
+reg [3:0]d2;
+reg [3:0]d3;
+reg [1:0] sel;
+wire [3:0]y;
+
+multiplexer4_1 abc (
+    .d0(d0),
+    .d1(d1),
+    .d2(d2),
+    .d3(d3),
+    .sel(sel),
+    .y(y)
+);
+
+initial begin
+
+d0 = 4'b1010;
+d1 = 4'b0010;
+d2 = 4'b1110;
+d3 = 4'b1011;
+
+sel = 2'b00;
+
+#10;
+sel = 2'b10;
+
+#10;
+sel = 2'b00;
+
+#10;
+sel = 2'b11;
+
+#10;
+sel = 2'b01;
+
+#60;
+$finish;
+end
+
+initial begin
+$monitor (" d0=%b d1=%b d2=%b d3=%b sel=%b y=%b", d0, d1, d2, d3, sel, y);
+end
+endmodule
